@@ -11,7 +11,6 @@ option go_package = "github.com/sagata1999/auth/pkg/user_v1;user_v1";
 service UserV1 {
     rpc Create(CreateRequest) returns (CreateResponse);
     rpc Get(GetRequest) returns (GetResponse);
-    rpc List(ListRequest) returns (ListResponse);
     rpc Update(UpdateRequest) returns (google.protobuf.Empty);
     rpc Delete(DeleteRequest) returns (google.protobuf.Empty);
 }
@@ -28,23 +27,20 @@ message UserInfo {
 }
 
 message CreateUser {
-    UserInfo info = 1;
-    string password = 4;
-    string password_confirm = 5;
+    string name = 1;
+    string email = 2;
+    string password = 3;
+    string password_confirm = 4;
+    Role role = 5; 
 }
 
 message User {
     int64 id = 1;
-    UserInfo info = 2;
-    google.protobuf.Timestamp created_at = 3;
-    google.protobuf.Timestamp updated_at = 4;
-}
-
-message UpdateUserInfo {
-    int64 id = 1;
-    google.protobuf.StringValue name = 2;
-    google.protobuf.StringValue email = 3;
-    Role role = 4;
+    string name = 2;
+    string email = 3;
+    Role role = 4; 
+    google.protobuf.Timestamp created_at = 5;
+    google.protobuf.Timestamp updated_at = 6;
 }
 
 message CreateRequest {
@@ -63,18 +59,11 @@ message GetResponse {
     User user = 1;
 }
 
-message ListRequest {
-    int64 limit = 1;
-    int64 offset = 2;
-}
-
-message ListResponse {
-    repeated User users = 1;
-}
-
 message UpdateRequest {
     int64 id = 1;
-    UpdateUserInfo info = 2;
+    google.protobuf.StringValue name = 2;
+    google.protobuf.StringValue email = 3;
+    Role role = 4;
 }
 
 message DeleteRequest {
