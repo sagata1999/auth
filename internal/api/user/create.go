@@ -9,7 +9,6 @@ import (
 )
 
 func (i *Implementation) Create(ctx context.Context, req *desc.CreateRequest) (*desc.CreateResponse, error) {
-	log.Printf("[api] create user request: %#v", req.GetUser())
 	id, err := i.userService.Create(ctx, converter.ToUserInfoFromDesc(req.GetUser()))
 	if err != nil {
 		log.Printf("[api] error %v", err)
